@@ -1,6 +1,6 @@
 required = {
   org_name           = "anoa"
-  deploy_environment = "test"
+  deploy_environment = "dev"
   environment        = "public"
   metadata_host      = "management.azure.com"
 }
@@ -39,4 +39,7 @@ redirector_spoke_subnets = {
     ]
   }
 }
+
+firewall_subnet_address_prefixes = [ "10.103.1.0/24" ]
+dmz_vnet_gateway_public_ip_address = "13.68.210.129"
 

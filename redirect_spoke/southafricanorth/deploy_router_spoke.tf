@@ -23,7 +23,9 @@ module "redirector_spoke" {
   #------------------------------------------------
   #  Virtual Network Configuration
   #------------------------------------------------
-  virtual_network_address_space = var.virtual_network_address_space
-  redirector_spoke_subnets      = var.redirector_spoke_subnets
+  virtual_network_address_space      = var.virtual_network_address_space
+  redirector_spoke_subnets           = var.redirector_spoke_subnets
+  firewall_subnet_address_prefixes   = var.firewall_subnet_address_prefixes
+  dmz_vnet_gateway_public_ip_address = var.dmz_vnet_gateway_public_ip_address
 
 }

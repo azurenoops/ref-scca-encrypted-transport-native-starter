@@ -69,3 +69,19 @@ variable "redirector_spoke_subnets" {
     })))
   }))
 }
+
+
+#----------------------------------------
+#  Redirector Firewall Configuration
+#----------------------------------------
+
+variable "firewall_subnet_address_prefixes" {
+  description = "The address prefixes to be used for the Azure firewall subnet."
+  default     = []
+}
+
+variable "dmz_vnet_gateway_public_ip_address" {
+  description = "The public IP address of the DMZ vnet gateway"
+  type        = string
+}
+

@@ -6,7 +6,7 @@ resource "azurerm_network_security_group" "redirector_spoke_nsg" {
 
   name                = data.azurenoopsutils_resource_name.nsg[each.key].result
   resource_group_name = module.mod_rg.resource_group_name
-  location            = module.mod_azure_region_lookup.location_full_name
+  location            = module.mod_azure_region_lookup.location_cli
 
   tags                = merge({ "ResourceName" = lower("nsg_${each.key}") }, local.workload_resources_tags, var.add_tags, )
   
