@@ -27,20 +27,33 @@ resource "azurerm_firewall" "redirect_firewall" {
   }
 }
 
-resource "azurerm_firewall_nat_rule_collection" "redirect_dnat_rule_collection" {
-  name                = "redirect_dnat_rule_collection"
-  azure_firewall_name = azurerm_firewall.redirect_firewall.name
-  resource_group_name = module.mod_rg.resource_group_name
-  priority            = 100
-  action              = "Dnat"
+#######################################################
+## Redirect Policy Configuration
+#######################################################
 
-  rule {
-    name                  = "redirectrule"
-    source_addresses      = ["0.0.0.0/0"]
-    destination_ports     = ["1194"]
-    destination_addresses = [azurerm_public_ip.redirect_firewall_public_ip.ip_address]
-    protocols             = ["TCP", "UDP"]
-    translated_address    = var.dmz_vnet_gateway_public_ip_address
-    translated_port       = "1194"
+resource "azurerm_firewall_policy" "redirect_policy" {
+  name                = "redirect-policy"
+  resource_group_name = module.mod_rg.resource_group_name
+  location            = module.mod_azure_region_lookup.location_cli
+}
+
+resource "azurerm_firewall_policy_rule_collection_group" "example" {
+  name               = "redirect-fwpolicy-rcg"
+  firewall_policy_id = azurerm_firewall_policy.redirect_policy.id
+  priority           = 100
+
+  nat_rule_collection {
+    name     = "redirect_nat_rule_collection"
+    priority = 100
+    action   = "Dnat"
+    rule {
+      name                = "redirect_nat_rule_collection_redirect_to_dmz"
+      protocols           = ["TCP", "UDP"]
+      source_addresses    = ["*"]
+      destination_address = azurerm_public_ip.redirect_firewall_public_ip.ip_address
+      destination_ports   = ["1194"]
+      translated_address  = var.dmz_vnet_gateway_public_ip_address
+      translated_port     = "1194"
+    }
   }
 }
