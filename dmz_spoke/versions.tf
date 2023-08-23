@@ -24,11 +24,15 @@ terraform {
       source  = "hashicorp/azuread"
       version = "~> 2.15"
     }
+    azurenoopsutils = {
+      source  = "azurenoops/azurenoopsutils"
+      version = "~> 1.0"
+    }
   }
 
   required_version = ">= 1.3"
 
- /*  backend "azurerm" {
+  /*  backend "azurerm" {
     resource_group_name  = "afmpe-network-artifacts-rg"
     storage_account_name = "afmpetfmgtprodh8dc4qua"
     container_name       = "core-mgt-prod-tfstate"
@@ -40,6 +44,10 @@ terraform {
 provider "azurerm" {
   environment = "public"
   #metadata_host = ""  <-- DO NOT SET for Azure Commercial or you will see strange errors from Storage Accts about TLS version not being available in 'AzureCloud'
-  features {}
+    features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false
+    }
+  }
 }
 

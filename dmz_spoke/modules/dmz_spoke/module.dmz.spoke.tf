@@ -27,10 +27,10 @@ module "mod_dmz_spoke" {
   create_resource_group            = var.create_resource_group
   custom_spoke_resource_group_name = var.custom_dmz_resource_group_name
 
-  location           = module.mod_azure_region_lookup.location_full_name
-  deploy_environment = var.deploy_environment
-  org_name           = var.org_name
-  environment        = var.environment
+  location           = module.mod_azure_region_lookup.location_cli
+  deploy_environment = var.required.deploy_environment
+  org_name           = var.required.org_name
+  environment        = var.required.environment
   workload_name      = var.wl_name
 
   # Collect Hub network details for peering.
@@ -56,6 +56,7 @@ module "mod_dmz_spoke" {
   # Route_table and NSG association to be added automatically for all subnets listed here.
   # subnet name will be set as per Azure naming convention by defaut. expected value here is: <App or project name>
   spoke_subnets = var.wl_subnets
+ 
 
   # Enable Flow Logs
   # By default, this will enable the traffic analytics flow logs for all subnets.

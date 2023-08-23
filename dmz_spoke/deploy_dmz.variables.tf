@@ -122,3 +122,86 @@ variable "route_server_subnet_address_prefix" {
   description = "The address prefix for the Route Server Subnet. Must be a /27 or larger"
   type        = string
 }
+
+variable "route_server_bgp_asn" {
+  description = "The BGP ASN to use for the Route Server."
+  type        = number
+  validation {
+    condition     = (var.route_server_bgp_asn >= 0 && var.route_server_bgp_asn <= 64495) && var.route_server_bgp_asn != 8074 && var.route_server_bgp_asn != 8075 && var.route_server_bgp_asn != 12076 && var.route_server_bgp_asn != 23456
+    error_message = "The BGP ASN must be between 0 and 64495 and not 8074, 8075, 12076 & 23456 which are reserved by IANA or Azure."
+  }
+}
+
+#####################################
+## Virtual Network Gateway Config  ##
+#####################################
+
+variable "vnet_gateway_subnet_address_prefixes" {
+  description = "The address prefixes to be used for the Azure virtual network gateway subnet."
+  type        = list(string)
+}
+
+variable "vnet_gateway_vpn_client_address_prefixes" {
+  description = "The address prefixes to be used for the Azure virtual network gateway vpn client."
+  type        = list(string)
+}
+
+variable "vnet_gateway_vpn_root_certificate_path" {
+  description = "The path to the root certificate for the Azure virtual network gateway vpn client."
+  type        = string
+}
+
+variable "vnet_gateway_sku" {
+  description = "The SKU of the Azure virtual network gateway."
+  type        = string
+  default     = "VpnGw2"
+}
+
+
+
+#############################################
+##   BGP Linux VM Scale Set Configuration  ##
+#############################################
+
+variable "existing_bgp_linux_vmss_resource_group_name" {
+  description = "The name of the existing resource group to use."
+  type        = string
+  default     = null
+}
+
+variable "bgp_linux_vmss_ssh_private_key_path" {
+  description = "Local path to the Private SSH key file that will be deployed into the KeyVault."
+  type        = string
+  default     = null
+}
+
+variable "bgp_linux_vmss_ssh_public_key_path" {
+  description = "Local path to the Public SSH key file that will be deployed on Scale set."
+  type        = string
+  default     = null
+}
+
+variable "bgp_linux_vmss_admin_username" {
+  description = "The admin username for the BGP Linux VMSS."
+  type        = string
+  default     = "azureuser"
+}
+
+variable "bgp_linux_vmss_vmsize" {
+  description = "The VM size for the BGP Linux VMSS."
+  type        = string
+  default     = "Standard_DS1_v2"
+}
+
+variable "kv_admin_group_name" {
+  description = "The name of the group to be given access to the Key Vault."
+  type        = string
+} 
+
+variable "kv_ip_allow_list"{
+  description = "The IP addresses to allow access to the Key Vault."
+  type        = list(string)
+  default     = []
+}
+
+

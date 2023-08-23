@@ -21,3 +21,13 @@ output "virtual_network_name" {
   description = "The name of the virtual network"
   value       = module.mod_dmz_spoke.virtual_network_name
 }
+
+output "default_subnet_id" {
+  description = "The name of the default subnet"
+  value       = module.mod_dmz_spoke.subnet_ids[1]
+}
+
+output "bgp_subnet_id" {
+  description = "The name of the default subnet"
+  value       = module.mod_dmz_spoke.subnet_ids[0]
+}

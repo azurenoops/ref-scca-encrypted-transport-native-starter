@@ -1,21 +1,13 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
-#################################
-# Route Server Configuration
-#################################
 
-variable "location" {
-  description = "Azure region in which instance will be hosted"
-  type        = string
-}
+#############################################
+# Virtual Network Gateway Configuration
+#############################################
 
-variable "route_server_subnet_address_prefix" {
-  description = "The address prefix for the Route Server Subnet. Must be a /27 or larger"
-  type        = string
-}
 
-variable dmz_virtual_network_name {
+variable "dmz_virtual_network_name" {
   description = "The name of the DMZ virtual network"
   type        = string
 }
@@ -24,3 +16,26 @@ variable "dmz_resource_group_name" {
   description = "The name of the DMZ resource group"
   type        = string
 }
+
+variable "vnet_gateway_subnet_address_prefixes" {
+  description = "The address prefixes to be used for the Azure virtual network gateway subnet."
+  type        = list(string)
+}
+
+variable "vnet_gateway_vpn_client_address_prefixes" {
+  description = "The address prefixes to be used for the Azure virtual network gateway vpn client."
+  type        = list(string)
+}
+
+
+variable "vnet_gateway_vpn_root_certificate_path" {
+  description = "The path to the root certificate for the Azure virtual network gateway vpn client."
+  type        = string
+}
+
+variable "vnet_gateway_sku" {
+  description = "The SKU of the Azure virtual network gateway."
+  type        = string
+  default     = "VpnGw2"
+}
+
