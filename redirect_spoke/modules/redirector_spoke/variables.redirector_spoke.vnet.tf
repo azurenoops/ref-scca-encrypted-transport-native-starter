@@ -14,3 +14,4 @@ variable "firewall_subnet_address_prefixes" {
   description = "The address prefixes to be used for the Azure firewall subnet."
   default     = []
 }
+

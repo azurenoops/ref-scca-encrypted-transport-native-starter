@@ -57,6 +57,16 @@ data "azurenoopsutils_resource_name" "fw-pip" {
   separator     = "-"
 }
 
+
+data "azurenoopsutils_resource_name" "fw-mgmt-pip" {
+  name          = "${var.workload_name}-fwmgmt"
+  resource_type = "azurerm_public_ip"
+  prefixes      = [var.required.org_name, var.use_location_short_name ? module.mod_azure_region_lookup.location_short : module.mod_azure_region_lookup.location_cli]
+  suffixes      = compact([var.name_prefix == "" ? null : local.name_prefix, var.required.deploy_environment, local.name_suffix, var.use_naming ? "" : "pip"])
+  use_slug      = var.use_naming
+  clean_input   = true
+  separator     = "-"
+}
 data "azurenoopsutils_resource_name" "fw" {
   name          = var.workload_name
   resource_type = "azurerm_firewall"

@@ -5,7 +5,7 @@ required = {
 }
 
 location      = "southafricanorth"
-workload_name = "et-redir"
+workload_name = "et-redir2"
 
 
 
