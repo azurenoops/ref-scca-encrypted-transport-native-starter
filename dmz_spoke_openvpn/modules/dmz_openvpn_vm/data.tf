@@ -9,8 +9,8 @@ data "azurerm_log_analytics_workspace" "dmz_logws" {
   resource_group_name = var.dmz_log_analytics_workspace_resource_group_name
 }
 
-data "azuread_group" "admin_group" {
+/* data "azuread_group" "admin_group" {
   display_name = var.kv_admin_group_name
-} 
+}  */
 
 

@@ -7,7 +7,7 @@ module "dmz_keyvault" {
 
   depends_on = [
     azurerm_private_dns_zone.dns_zone,
-    data.azuread_group.admin_group
+    //data.azuread_group.admin_group
   ]
 
   # By default, this module will create a resource group and 
@@ -51,9 +51,9 @@ module "dmz_keyvault" {
 
 
   # Current user should be here to be able to create keys and secrets
-  /*   admin_objects_ids = [
-    data.azuread_group.admin_group.id
-  ] */
+  admin_objects_ids = [
+    var.kv_admin_group_object_id
+  ] 
 }
 
 ###################################

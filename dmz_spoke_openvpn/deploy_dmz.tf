@@ -27,10 +27,10 @@ module "dmz_spoke" {
   #
   ########################################
 
-  hub_resource_group_name                         = var.hub_resource_group_name
-  hub_virtual_network_name                        = var.hub_virtual_network_name
-  hub_storage_account_name                        = var.hub_storage_account_name
-hub_firewall_name = var.hub_firewall_name
+  hub_resource_group_name  = var.hub_resource_group_name
+  hub_virtual_network_name = var.hub_virtual_network_name
+  hub_storage_account_name = var.hub_storage_account_name
+  hub_firewall_name        = var.hub_firewall_name
 
   hub_log_analytics_workspace_resource_group_name = var.hub_log_analytics_workspace_resource_group_name
   hub_log_analytics_workspace_name                = var.hub_log_analytics_workspace_name
@@ -70,9 +70,10 @@ module "openvpn" {
   #  DMZ OpenVPN Key Vault
   #---------------------------------
 
-  kv_ip_allow_list    = var.kv_ip_allow_list
-  kv_admin_group_name = var.kv_admin_group_name
-  kv_subnet_id        = module.dmz_spoke.openvpn_trusted_subnet_id
+  kv_ip_allow_list = var.kv_ip_allow_list
+  //kv_admin_group_name = var.kv_admin_group_name
+  kv_admin_group_object_id = var.kv_admin_group_object_id
+  kv_subnet_id             = module.dmz_spoke.openvpn_trusted_subnet_id
 
 
   #---------------------------------

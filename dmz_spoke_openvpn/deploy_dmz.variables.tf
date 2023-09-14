@@ -171,8 +171,13 @@ variable "kv_ip_allow_list" {
   default     = []
 }
 
-variable "kv_admin_group_name" {
+/* variable "kv_admin_group_name" {
   description = "The name of the group to be given access to the Key Vault."
+  type        = string
+} */
+
+variable "kv_admin_group_object_id" {
+  description = "The object id (GUID) of the group to be given access to the Key Vault."
   type        = string
 }
 

@@ -65,7 +65,8 @@ dmz_vnet_subnets = {
 #############################################################
 
 
-kv_admin_group_name = "ssj-ovpn-admins"
+//kv_admin_group_name = "ssj-ovpn-admins"
+kv_admin_group_object_id = "b7ee7c0a-b3e6-4e7d-a52b-349f2ea7df29"
 kv_ip_allow_list    = ["67.77.83.175"]
 
 openvpn_server_vm_admin_username       = "azureuser"

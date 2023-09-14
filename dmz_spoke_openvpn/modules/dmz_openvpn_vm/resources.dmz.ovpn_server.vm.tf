@@ -69,6 +69,25 @@ resource "azurerm_linux_virtual_machine" "ovpn-server-vm" {
     version   = "latest"
   }
 
+    # Use custom TAK scripts to install TAK Server on the VM.
+/*   custom_data = base64encode(templatefile("${path.module}/scripts/cloud-init.sh",
+    {
+      CERT_STATE               = var.cert_state
+      CERT_CITY                = var.cert_city
+      CERT_ORGANIZATION        = var.cert_org
+      CERT_ORGANIZATIONAL_UNIT = var.cert_org_unit
+      CERT_USERS               = var.cert_users
+      CERT_CAPASS              = random_password.ca_passwd.result
+      SA_PASSWD                = var.sa_passwd
+      SAS_CONNECTION           = data.azurerm_storage_account_sas.example.sas
+      VAULT_NAME               = azurerm_key_vault.vm.name
+      SUBSCRIPTION             = data.azurerm_subscription.current.subscription_id
+      SA_URL_PREFIX            = var.sa_url_prefix
+      TAK_PACKAGE_DEB          = var.tak_package_deb
+      TAK_PACKAGE_RPM          = var.tak_package_rpm
+    }
+  )) */
+
 }
 
 ###################################
