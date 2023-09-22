@@ -81,8 +81,8 @@ module "openvpn" {
   #---------------------------------
 
   openvpn_server_vm_resource_group_name = module.dmz_spoke.resource_group_name
-  openvpn_untrusted_subnet_id           = module.dmz_spoke.openvpn_untrusted_subnet_id
-  openvpn_trusted_subnet_id             = module.dmz_spoke.openvpn_trusted_subnet_id
+  openvpn_untrusted_subnet_name         = module.dmz_spoke.openvpn_untrusted_subnet_name
+  openvpn_trusted_subnet_name           = module.dmz_spoke.openvpn_trusted_subnet_name
 
   openvpn_server_vm_name = var.openvpn_server_vm_name
   openvpn_server_vm_size = var.openvpn_server_vm_size
@@ -95,5 +95,12 @@ module "openvpn" {
   openvpn_server_image_offer     = var.openvpn_server_image_offer
   openvpn_server_image_sku       = var.openvpn_server_image_sku
 
+  openvpn_client_address_prefix = var.openvpn_client_address_prefix
 
+  openvpn_ca_root_cert_path                = var.openvpn_ca_root_cert_path
+  openvpn_dh_cert_path                     = var.openvpn_dh_cert_path
+  openvpn_server_public_key_path           = var.openvpn_server_public_key_path
+  openvpn_server_private_key_path          = var.openvpn_server_private_key_path
+  openvpn_server_private_key_password_path = var.openvpn_server_private_key_password_path
+  openvpn_client_dns_server_address        = var.openvpn_client_dns_server_address
 }

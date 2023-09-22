@@ -8,44 +8,51 @@ resource "azurerm_public_ip" "ovpn-server-vm-pip" {
   name                = data.azurenoopsutils_resource_name.ovpn-server-vm-pip.result
   location            = module.mod_azure_region_lookup.location_cli
   resource_group_name = var.openvpn_server_vm_resource_group_name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 
 resource "azurerm_network_interface" "ovpn-server-vm-nic-untrusted" {
-  name                = data.azurenoopsutils_resource_name.ovpn-server-vm-nic-untrusted.result
-  location            = module.mod_azure_region_lookup.location_cli
-  resource_group_name = var.openvpn_server_vm_resource_group_name
+  name                 = data.azurenoopsutils_resource_name.ovpn-server-vm-nic-untrusted.result
+  location             = module.mod_azure_region_lookup.location_cli
+  resource_group_name  = var.openvpn_server_vm_resource_group_name
   enable_ip_forwarding = true
+  enable_accelerated_networking = true
 
   ip_configuration {
     name                          = "ovpn-server-vm-nic-untrusted-ipconfig"
-    subnet_id                     = var.openvpn_untrusted_subnet_id
-    private_ip_address_allocation = "Dynamic"
+    subnet_id                     = data.azurerm_subnet.untrusted.id
+    private_ip_address_allocation = "Static"
+    private_ip_address            = local.untrusted_nic_ip_address
     public_ip_address_id          = azurerm_public_ip.ovpn-server-vm-pip.id
   }
 }
 
 resource "azurerm_network_interface" "ovpn-server-vm-nic-trusted" {
-  name                = data.azurenoopsutils_resource_name.ovpn-server-vm-nic-trusted.result
-  location            = module.mod_azure_region_lookup.location_cli
-  resource_group_name = var.openvpn_server_vm_resource_group_name
+  name                 = data.azurenoopsutils_resource_name.ovpn-server-vm-nic-trusted.result
+  location             = module.mod_azure_region_lookup.location_cli
+  resource_group_name  = var.openvpn_server_vm_resource_group_name
   enable_ip_forwarding = true
-
+  enable_accelerated_networking = true
+  
   ip_configuration {
     name                          = "ovpn-server-vm-nic-trusted-ipconfig"
-    subnet_id                     = var.openvpn_trusted_subnet_id
-    private_ip_address_allocation = "Dynamic"
+    subnet_id                     = data.azurerm_subnet.trusted.id
+    private_ip_address_allocation = "Static"
+    private_ip_address            = local.trusted_nic_ip_address
   }
 }
 
 resource "azurerm_linux_virtual_machine" "ovpn-server-vm" {
+  depends_on          = [module.dmz_keyvault]
   name                = data.azurenoopsutils_resource_name.ovpn_server_vm.result
   location            = module.mod_azure_region_lookup.location_cli
   resource_group_name = var.openvpn_server_vm_resource_group_name
   computer_name       = var.openvpn_server_vm_name
   size                = var.openvpn_server_vm_size
   admin_username      = var.openvpn_server_vm_admin_username
+
+  custom_data = data.template_cloudinit_config.openvpn_config.rendered
 
   admin_ssh_key {
     username   = var.openvpn_server_vm_admin_username
@@ -68,26 +75,6 @@ resource "azurerm_linux_virtual_machine" "ovpn-server-vm" {
     sku       = var.openvpn_server_image_sku
     version   = "latest"
   }
-
-    # Use custom TAK scripts to install TAK Server on the VM.
-/*   custom_data = base64encode(templatefile("${path.module}/scripts/cloud-init.sh",
-    {
-      CERT_STATE               = var.cert_state
-      CERT_CITY                = var.cert_city
-      CERT_ORGANIZATION        = var.cert_org
-      CERT_ORGANIZATIONAL_UNIT = var.cert_org_unit
-      CERT_USERS               = var.cert_users
-      CERT_CAPASS              = random_password.ca_passwd.result
-      SA_PASSWD                = var.sa_passwd
-      SAS_CONNECTION           = data.azurerm_storage_account_sas.example.sas
-      VAULT_NAME               = azurerm_key_vault.vm.name
-      SUBSCRIPTION             = data.azurerm_subscription.current.subscription_id
-      SA_URL_PREFIX            = var.sa_url_prefix
-      TAK_PACKAGE_DEB          = var.tak_package_deb
-      TAK_PACKAGE_RPM          = var.tak_package_rpm
-    }
-  )) */
-
 }
 
 ###################################

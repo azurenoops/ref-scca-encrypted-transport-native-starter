@@ -53,7 +53,7 @@ module "dmz_keyvault" {
   # Current user should be here to be able to create keys and secrets
   admin_objects_ids = [
     var.kv_admin_group_object_id
-  ] 
+  ]
 }
 
 ###################################
@@ -64,3 +64,5 @@ resource "azurerm_private_dns_zone" "dns_zone" {
   resource_group_name = var.dmz_resource_group_name
   tags                = merge({ "Name" = format("%s", "Azure-Key-Vault-Private-DNS-Zone") }, local.workload_resources_tags, )
 }
+
+

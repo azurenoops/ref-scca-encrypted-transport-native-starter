@@ -43,3 +43,4 @@ resource "azurerm_subnet_route_table_association" "trusted_subnet_route_table_as
   subnet_id      = module.mod_dmz_spoke.subnet_ids["trusted"].name
   route_table_id = azurerm_route_table.trusted_subnet_route_table.id
 }
+

@@ -181,3 +181,4 @@ variable "enable_traffic_analytics" {
   type        = bool
   default     = false
 }
+

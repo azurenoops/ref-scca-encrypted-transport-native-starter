@@ -128,32 +128,7 @@ variable "hub_log_analytics_workspace_name"{
   default     = null
 }
 
-/* variable "hub_virtual_network_resource_id" {
-  description = "Resource ID of the Hub VNet"
-  type        = string
-}
 
-variable "hub_firewall_private_ip_address" {
-  description = "Private IP Address of the Firewall"
-  type        = string
-}
-
-variable "hub_storage_account_resource_id" {
-  description = "Resource ID of the Hub Storage Account"
-  type        = string
-}
-
-variable "log_analytics_workspace_resource_id" {
-  description = "Specifies the id of the Log Analytics Workspace in the hub."
-  default     = ""
-}
-
-variable "log_analytics_workspace_id" {
-  description = "The Log Analytics workspace ID for the hub management logging."
-  type        = string
-  default     = null
-}
- */
 
 ##################################
 # DMZ OpenVPN VMs Configuration ##
@@ -193,18 +168,6 @@ variable "openvpn_server_vm_resource_group_name" {
   default     = null
 }
 
-variable "openvpn_server_vm_subnet_name" {
-  description = "The name of the subnet to deploy the OpenVPN Server into."
-  type        = string
-  default     = null
-}
-
-/* variable "openvpn_server_vm_subnet_id" {
-  description = "The resource id of the subnet to deploy the OpenVPN Server into."
-  type        = string
-  default     = null
-}
- */
 variable "openvpn_server_vm_keyvault_id" {
   description = "The ID of the KeyVault to store the OpenVPN Server password."
   type        = string
@@ -226,7 +189,7 @@ variable "openvpn_virtual_machine_users" {
 variable "openvpn_server_vm_size" {
   description = "The size of the virtual machine to deploy for the OpenVPN Server."
   type        = string
-  default     = "Standard_D2s_v3"
+  default     = "Standard_D4s_v3"
 }
 
 variable "openvpn_server_vm_admin_username" {
@@ -273,3 +236,38 @@ variable "openvpn_server_image_sku" {
   default     = "gen2"
 }
 
+variable "openvpn_client_address_prefix" {
+  description = "The address prefixes to use for the VPN clients."
+  type        = string
+}
+
+variable "openvpn_ca_root_cert_path" {
+  description = "The local path to the OpenVPN CA root certificate file."
+  type        = string
+}
+
+variable "openvpn_dh_cert_path" {
+  description = "The local path to the OpenVPN Diffie-Hellman certificate file."
+  type        = string
+}
+
+variable "openvpn_server_public_key_path" {
+  description = "The local path to the OpenVPN server public key file."
+  type        = string
+}
+
+variable "openvpn_server_private_key_path" {
+  description = "The local path to the OpenVPN server private key file."
+  type        = string
+}
+
+variable "openvpn_server_private_key_password_path" {
+  description = "The local path to the OpenVPN server private key password file."
+  type        = string
+}
+
+variable "openvpn_client_dns_server_address" {
+  description = "The DNS server address to use for the OpenVPN clients. Default is Azure DNS (168.63.129.16)."
+  type        = string
+  default     = "168.63.129.16"
+}

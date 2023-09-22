@@ -10,17 +10,20 @@ variable "openvpn_server_vm_subnet_name" {
   default     = null  
 }
 
-variable "openvpn_untrusted_subnet_id" {
-  description = "The resource id of the untrusted subnet for the OpenVPN Server's first NIC."
+variable "openvpn_untrusted_subnet_name"{
+  description = "The name of the subnet on the Internet-facing side of the OpenVPN server"
   type        = string
-  default     = null  
+  default     = null
 }
 
-variable "openvpn_trusted_subnet_id" {
-  description = "The resource id of the trusted subnet for the OpenVPN Server's second NIC."
+
+variable "openvpn_trusted_subnet_name"{
+  description = "The name of the subnet on the firewall-facing side of the OpenVPN server"
   type        = string
-  default     = null  
+  default     = null
 }
+
+
 
 variable "openvpn_server_vm_keyvault_id" {
   description = "The ID of the KeyVault to store the OpenVPN Server password."
@@ -43,7 +46,7 @@ variable "openvpn_server_virtual_machine_users" {
 variable "openvpn_server_vm_size" {
   description = "The size of the virtual machine to deploy for the OpenVPN Server."
   type        = string
-  default     = "Standard_D2s_v3"
+  default     = "Standard_D4s_v3"
 }
 
 variable "openvpn_server_vm_admin_username" {
@@ -75,20 +78,53 @@ variable "openvpn_server_vm_name" {
 variable "openvpn_server_image_publisher" {
   description = "The publisher of the image to use for the OpenVPN Server."
   type        = string
-  default     = "canonical"
+  default     = "suse"
 }
 
 variable "openvpn_server_image_offer" {
   description = "The offer of the image to use for the OpenVPN Server."
   type        = string
-  default     = "0001-com-ubuntu-server-jammy"
+  default     = "opensuse-leap-15-5"
 }
 
 variable "openvpn_server_image_sku" {
   description = "The SKU of the image to use for the OpenVPN Server."
   type        = string
-  default     = "22_04-lts-gen2"
+  default     = "gen2"
 }
 
+variable "openvpn_client_address_prefix"{
+  description = "The address prefix to use for the OpenVPN clients."
+  type        = string
+}
 
+variable "openvpn_ca_root_cert_path" {
+  description = "The local path to the OpenVPN CA root certificate file."
+  type        = string
+}
 
+variable "openvpn_dh_cert_path" {
+  description = "The local path to the OpenVPN Diffie-Hellman certificate file."
+  type        = string
+}
+
+variable "openvpn_server_public_key_path" {
+  description = "The local path to the OpenVPN server public key file."
+  type        = string
+}
+
+variable "openvpn_server_private_key_path" {
+  description = "The local path to the OpenVPN server private key file."
+  type        = string
+}
+
+variable "openvpn_server_private_key_password_path" {
+  description = "The local path to the OpenVPN server private key password file."
+  type        = string
+}
+
+variable "openvpn_client_dns_server_address" {
+  description = "The DNS server address to use for the OpenVPN clients."
+  type        = string
+  default     = "168.63.129.16"
+}

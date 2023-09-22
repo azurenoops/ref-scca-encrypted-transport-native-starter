@@ -33,8 +33,14 @@ output "openvpn_untrusted_subnet_id"{
   value       = module.mod_dmz_spoke.subnet_ids["trusted"].name
 }
 
+output "subnet_address_prefixes" {
+  description = "Map of address prefix for subnets"
+  value = { for key, prefix in zipmap(
+    keys(var.wl_subnets),
+    flatten(module.mod_dmz_spoke.subnet_address_prefixes)) :
+  key => { key = key, prefix = prefix } }
+}
 
-//TODO:  Change these to use the subnet_names when the Workload Spoke is updated
 output "openvpn_trusted_subnet_name"{
   description = "The name of the subnet on the firewall-facing side of the OpenVPN server"
   value       = module.mod_dmz_spoke.subnet_names["trusted"].name

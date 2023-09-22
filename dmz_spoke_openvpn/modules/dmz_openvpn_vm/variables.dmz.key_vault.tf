@@ -20,8 +20,12 @@ variable "kv_enabled_for_template_deployment" {
   default     = false
 }
 
-variable "kv_admin_group_name" {
+/* variable "kv_admin_group_name" {
   description = "The name of the group to be given access to the Key Vault."
+  type        = string
+} */
+variable "kv_admin_group_object_id" {
+  description = "The object id of the group to be given access to the Key Vault."
   type        = string
 }
 
@@ -54,3 +58,4 @@ variable "existing_vnet_name" {
   type        = string
   default     = null
 }
+
