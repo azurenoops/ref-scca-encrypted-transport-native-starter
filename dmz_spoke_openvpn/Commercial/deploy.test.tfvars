@@ -9,6 +9,7 @@ location      = "eastus"
 workload_name = "openvpn"
 
 dmz_subscription_id                             = "c24647bf-0c86-4408-8d29-6a67262a2701"
+hub_subscription_id                             = "c24647bf-0c86-4408-8d29-6a67262a2701"
 hub_virtual_network_name                        = "anoa-eus-hub-core-dev-vnet"
 hub_resource_group_name                         = "anoa-eus-hub-core-dev-rg"
 hub_firewall_name                               = "anoa-eus-hub-core-dev-fw"
@@ -66,10 +67,7 @@ dmz_vnet_subnets = {
         destination_port_range = "*",
         source_address_prefix  = "10.3.0.0/16",
         destination_address_prefixes = [
-          "10.8.4.0/23",
-          "10.8.9.0/24",
-          "10.8.6.0/24",
-          "10.8.7.0/24"
+          "10.8.0.0/16"
         ]
       }
     ]

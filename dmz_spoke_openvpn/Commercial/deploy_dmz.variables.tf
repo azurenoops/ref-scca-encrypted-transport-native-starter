@@ -91,6 +91,11 @@ variable "dmz_vnet_subnets" {
   }))
 }
 
+variable "hub_subscription_id" {
+  description = "Subscription ID where the Hub is deployed"
+  type        = string
+}
+
 ##  Info to peer to the Hub VNet, force-tunnel to the firewall, and configure Logging ##
 variable "hub_resource_group_name" {
   description = "The name of the hub resource group."

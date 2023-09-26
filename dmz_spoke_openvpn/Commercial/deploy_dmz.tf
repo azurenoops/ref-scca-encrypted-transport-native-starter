@@ -13,12 +13,12 @@ AUTHOR/S: sstjean
 ################################
 
 module "dmz_spoke" {
-  source                   = "../modules/dmz_spoke"
-  required                 = var.required
-  hub_subscription_id = var.dmz_subscription_id
-  wl_name                  = var.workload_name
-  create_resource_group    = var.create_resource_group
-  location                 = var.location
+  source                = "../modules/dmz_spoke"
+  required              = var.required
+  dmz_subscription_id   = var.dmz_subscription_id
+  wl_name               = var.workload_name
+  create_resource_group = var.create_resource_group
+  location              = var.location
 
 
   ########################################
@@ -26,7 +26,7 @@ module "dmz_spoke" {
   #  Hub Information for peering
   #
   ########################################
-
+  hub_subscription_id      = var.hub_subscription_id
   hub_resource_group_name  = var.hub_resource_group_name
   hub_virtual_network_name = var.hub_virtual_network_name
   hub_storage_account_name = var.hub_storage_account_name

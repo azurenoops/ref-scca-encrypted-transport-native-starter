@@ -6,6 +6,7 @@ required = {
 
 location            = "usgovarizona"
 workload_name       = "openvpn"
+
 dmz_subscription_id = "05a6933e-c44b-4e82-9d12-da75d1933fd3"
 
 hub_subscription_id                             = "05a6933e-c44b-4e82-9d12-da75d1933fd3"
