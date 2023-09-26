@@ -11,7 +11,7 @@ data "template_cloudinit_config" "openvpn_config" {
   }
   part {
     content_type = "text/x-shellscript"
-    content      = file("./modules/dmz_openvpn_vm/cloud_init_scripts/update-iproute2.sh")
+    content      = file("${path.module}/cloud_init_scripts/update-iproute2.sh")
   }
 }
 

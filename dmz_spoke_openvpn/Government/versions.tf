@@ -19,6 +19,7 @@ terraform {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "~>3.36"
+
     }
     azuread = {
       source  = "hashicorp/azuread"
@@ -42,12 +43,22 @@ terraform {
 
 # Configure the Azure Resource Manager Provider
 provider "azurerm" {
-  environment = "public"
-  #metadata_host = ""  <-- DO NOT SET for Azure Commercial or you will see strange errors from Storage Accts about TLS version not being available in 'AzureCloud'
-    features {
+  subscription_id            = var.dmz_subscription_id
+  environment                = var.required.environment
+  skip_provider_registration = var.required.environment == "usgovernment" ? true : false
+  features {
+    log_analytics_workspace {
+      permanently_delete_on_destroy = true
+    }
+    key_vault {
+      purge_soft_delete_on_destroy = true
+    }
     resource_group {
       prevent_deletion_if_contains_resources = false
     }
   }
 }
+
+
+
 

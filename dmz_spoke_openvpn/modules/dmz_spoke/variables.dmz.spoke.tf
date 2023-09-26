@@ -22,14 +22,9 @@ variable "disable_telemetry" {
   default     = false
 }
 
-variable "subscription_id_workload" {
+variable "dmz_subscription_id" {
+  description = "Subscription ID where the DMZ will be deployed"
   type        = string
-  description = "If specified, identifies the Workload subscription for resource deployment."
-
-  validation {
-    condition     = can(regex("^[a-z0-9-]{36}$", var.subscription_id_workload)) || var.subscription_id_workload == ""
-    error_message = "Value must be a valid Subscription ID (GUID)."
-  }
 }
 
 variable "create_resource_group" {
@@ -133,6 +128,16 @@ variable "use_source_remote_spoke_gateway" {
   description = "Indicates whether to use the source remote spoke gateway."
   type        = bool
   default     = false
+}
+
+variable "hub_subscription_id" {
+  type        = string
+  description = "Identifies the hub subscription for vnet peering."
+
+  validation {
+    condition     = can(regex("^[a-z0-9-]{36}$", var.hub_subscription_id)) || var.hub_subscription_id == ""
+    error_message = "Value must be a valid Subscription ID (GUID)."
+  }
 }
 variable "hub_resource_group_name" {
   description = "The name of the hub resource group."

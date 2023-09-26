@@ -10,13 +10,17 @@ terraform {
 }
 
 provider "azurerm" {
+  environment     = var.required.environment
+  subscription_id = var.dmz_subscription_id
+  skip_provider_registration = var.required.environment == "usgovernment" ? true : false
   features {}
 }
 
 provider "azurerm" {
   alias           = "hub"
-  environment     = "public"
-  subscription_id = var.subscription_id_workload
+  environment     = var.required.environment
+  skip_provider_registration = var.required.environment == "usgovernment" ? true : false
+  subscription_id = var.hub_subscription_id
   features {
     resource_group {
       prevent_deletion_if_contains_resources = false

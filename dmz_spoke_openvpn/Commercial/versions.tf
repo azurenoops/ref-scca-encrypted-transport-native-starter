@@ -43,14 +43,18 @@ terraform {
 
 # Configure the Azure Resource Manager Provider
 provider "azurerm" {
-  environment     = "public"
-  subscription_id = var.dmz_subscription_id
+  subscription_id            = var.dmz_subscription_id
+  environment                = var.required.environment
+  skip_provider_registration = var.required.environment == "usgovernment" ? true : false
   features {
-    resource_group {
-      prevent_deletion_if_contains_resources = false
+    log_analytics_workspace {
+      permanently_delete_on_destroy = true
     }
     key_vault {
       purge_soft_delete_on_destroy = true
+    }
+    resource_group {
+      prevent_deletion_if_contains_resources = false
     }
   }
 }
