@@ -1,0 +1,27 @@
+#!/bin/bash
+echo " " >> /var/log/openvpn/setup_routing.log
+echo $(date "+%FT%T") + " |------ Start run -------" >> /var/log/openvpn/setup_routing.log
+echo $(date "+%FT%T") + " |  Setup table start" >> /var/log/openvpn/setup_routing.log
+ip rule add from ${client_cidr_host} table openvpn-route  >> /var/log/openvpn/setup_routing.log
+echo $(date "+%FT%T") + " |  Setup table end" >> /var/log/openvpn/setup_routing.log
+
+echo $(date "+%FT%T") + " |  Setup lookup main start" >> /var/log/openvpn/setup_routing.log
+ip rule add from ${client_cidr_gateway_ip} lookup main  >> /var/log/openvpn/setup_routing.log
+echo $(date "+%FT%T") + " |  Setup lookup main end" >> /var/log/openvpn/setup_routing.log
+
+echo $(date "+%FT%T") + " |  Setup add table openvpn-route start" >> /var/log/openvpn/setup_routing.log
+ip route add default via ${trusted_subnet_gateway_ip} dev eth1 table openvpn-route   >> /var/log/openvpn/setup_routing.log
+echo $(date "+%FT%T") + " |  Setup add table openvpn-route end" >> /var/log/openvpn/setup_routing.log
+
+echo $(date "+%FT%T") + " |  Setup delete proto dhcp start" >> /var/log/openvpn/setup_routing.log
+ip route delete default via ${untrusted_subnet_gateway_ip} dev eth0 proto dhcp   >> /var/log/openvpn/setup_routing.log
+echo $(date "+%FT%T") + " |  Setup delete proto dhcp end" >> /var/log/openvpn/setup_routing.log
+
+echo $(date "+%FT%T") + " |  Setup add metric 10 start" >> /var/log/openvpn/setup_routing.log
+ip route add default via ${untrusted_subnet_gateway_ip} dev eth0 metric 10  >> /var/log/openvpn/setup_routing.log
+echo $(date "+%FT%T") + " |  Setup add metric 10 end" >> /var/log/openvpn/setup_routing.log
+
+echo $(date "+%FT%T") + " | ------ End run -------" >> /var/log/openvpn/setup_routing.log
+echo " " >> /var/log/openvpn/setup_routing.log
+echo " " >> /var/log/openvpn/setup_routing.log
+  

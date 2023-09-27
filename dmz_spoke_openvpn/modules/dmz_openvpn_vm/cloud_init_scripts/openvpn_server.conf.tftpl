@@ -1,0 +1,68 @@
+#change with your port
+port 443
+
+#You can use udp or tcp
+#proto udp
+proto tcp4
+
+# "dev tun" will create a routed IP tunnel.
+dev tun
+topology subnet
+
+#Certificate Configuration
+
+#ca certificate
+ca /etc/openvpn/${ca_cert_file_name}
+
+#Server Certificate
+cert /etc/openvpn/${server_cert_file_name}
+
+#Server Key and keep this is secret
+askpass /etc/openvpn/${server_private_key_pass_file_name}
+key /etc/openvpn/${server_private_key_file_name}
+auth-nocache
+
+#Diffie-Hellman key location
+dh /etc/openvpn/${dh_cert_file_name}
+
+#Internal IP clients will get when connected
+server ${client_cidr_host} ${client_cidr_netmask}
+
+#this line will redirect all traffic through our OpenVPN
+push "redirect-gateway def1"
+#push "route 10.2.0.0 255.255.0.0"
+
+#Provide DNS servers to the client. The Azure default is 168.63.129.16
+push "dhcp-option DNS ${client_dns_server_ip}"
+
+#Enable multiple client to connect with same key
+#duplicate-cn
+
+cipher AES-256-CBC
+data-ciphers AES-256-CBC
+#cipher AES-256-GCM
+#data-ciphers AES-256-CGM
+
+keepalive 20 60
+#comp-lzo
+persist-key
+persist-tun
+daemon
+
+#openvpn status log
+status /var/log/openvpn/openvpn-status.log
+
+#enable log
+log-append /var/log/openvpn/openvpn.log
+
+#Log Level
+verb 3
+
+#Setup routing 
+script-security 2
+up /etc/openvpn/setup_routing.sh
+down /etc/openvpn/teardown_routing.sh
+
+up-restart
+
+
