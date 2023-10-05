@@ -38,7 +38,7 @@ module "mod_dmz_spoke" {
   hub_resource_group_name         = var.hub_resource_group_name
   hub_virtual_network_name        = data.azurerm_virtual_network.hub-vnet.name
   hub_firewall_private_ip_address = data.azurerm_firewall.hub-fw.ip_configuration.0.private_ip_address
-  hub_storage_account_id          = data.azurerm_storage_account.hub-st.id
+
 
   # (Required) Log Analytics information for Azure monitoring and flow logs. 
   # The log_analytics_logs_retention_in_days values range between 30 and 730
@@ -49,7 +49,6 @@ module "mod_dmz_spoke" {
   # Enable Flow Logs
   # By default, this will enable the traffic analytics flow logs for all subnets.
   enable_traffic_analytics = var.enable_traffic_analytics
-
 
   # Provide valid VNet CIDR Address space for the DMZ virtual network.    
   virtual_network_address_space = var.wl_vnet_address_space # (Required)  Spoke Virtual Network Parameters
