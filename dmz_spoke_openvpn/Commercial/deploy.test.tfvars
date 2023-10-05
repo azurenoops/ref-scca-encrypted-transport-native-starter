@@ -2,18 +2,16 @@ required = {
   org_name           = "anoa"
   deploy_environment = "dev"
   environment        = "public"
-  metadata_host      = "management.azure.com"
 }
 
 location      = "eastus"
 workload_name = "openvpn"
 
-dmz_subscription_id                             = "c24647bf-0c86-4408-8d29-6a67262a2701"
-hub_subscription_id                             = "c24647bf-0c86-4408-8d29-6a67262a2701"
+dmz_subscription_id                             = "<< Enter your DMZ Subscription ID here >>"
+hub_subscription_id                             = "<< Enter your DMZ Subscription ID here >>"
 hub_virtual_network_name                        = "anoa-eus-hub-core-dev-vnet"
 hub_resource_group_name                         = "anoa-eus-hub-core-dev-rg"
 hub_firewall_name                               = "anoa-eus-hub-core-dev-fw"
-hub_storage_account_name                        = "anoaeus3ba012f68bdevst"
 hub_log_analytics_workspace_resource_group_name = "anoa-eus-ops-mgt-logging-dev-rg"
 hub_log_analytics_workspace_name                = "anoa-eus-ops-mgt-logging-dev-log"
 
@@ -82,9 +80,8 @@ dmz_vnet_subnets = {
 #############################################################
 openvpn_client_address_prefix = "10.3.0.0/16"
 
-//kv_admin_group_name = "ssj-ovpn-admins"
-kv_admin_group_object_id = "b7ee7c0a-b3e6-4e7d-a52b-349f2ea7df29"
-kv_ip_allow_list         = ["67.77.83.175"]
+kv_admin_group_object_id = "<< Object Id of AAD Group that you are a member of for KV access >>"
+kv_ip_allow_list         = []
 
 openvpn_server_vm_admin_username       = "azureuser"
 openvpn_server_vm_ssh_public_key_path  = "~/.ssh/ovpn-server-vm.key.pub"

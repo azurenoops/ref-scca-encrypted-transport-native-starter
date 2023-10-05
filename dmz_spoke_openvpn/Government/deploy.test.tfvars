@@ -4,16 +4,14 @@ required = {
   environment        = "usgovernment"
 }
 
-location            = "usgovarizona"
-workload_name       = "openvpn"
+location      = "usgovarizona"
+workload_name = "openvpn"
 
-dmz_subscription_id = "05a6933e-c44b-4e82-9d12-da75d1933fd3"
-
-hub_subscription_id                             = "05a6933e-c44b-4e82-9d12-da75d1933fd3"
+dmz_subscription_id                             = "<< Enter your DMZ Subscription ID here >>"
+hub_subscription_id                             = "<< Enter your DMZ Subscription ID here >>"
 hub_virtual_network_name                        = "anoa-usgaz-hub-core-dev-vnet"
 hub_resource_group_name                         = "anoa-usgaz-hub-core-dev-rg"
 hub_firewall_name                               = "anoa-usgaz-hub-core-dev-fw"
-hub_storage_account_name                        = "anoausgaz1bebf90b11devst"
 hub_log_analytics_workspace_resource_group_name = "anoa-usgaz-ops-mgt-logging-dev-rg"
 hub_log_analytics_workspace_name                = "anoa-usgaz-ops-mgt-logging-dev-log"
 
@@ -82,9 +80,8 @@ dmz_vnet_subnets = {
 #############################################################
 openvpn_client_address_prefix = "10.3.0.0/16"
 
-//kv_admin_group_name = "mpe-openvpn-admins"
-kv_admin_group_object_id = "1a629904-171a-4956-9099-4be2f06c9767"
-kv_ip_allow_list         = ["67.77.83.175"]
+kv_admin_group_object_id = "<< AAD Group GUID here >>"
+kv_ip_allow_list         = []
 
 openvpn_server_vm_admin_username       = "azureuser"
 openvpn_server_vm_ssh_public_key_path  = "~/.ssh/ovpn-server-vm.key.pub"
