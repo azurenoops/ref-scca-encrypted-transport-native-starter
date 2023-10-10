@@ -29,7 +29,6 @@ module "dmz_spoke" {
   hub_subscription_id      = var.hub_subscription_id
   hub_resource_group_name  = var.hub_resource_group_name
   hub_virtual_network_name = var.hub_virtual_network_name
-  hub_storage_account_name = var.hub_storage_account_name
   hub_firewall_name        = var.hub_firewall_name
 
   hub_log_analytics_workspace_resource_group_name = var.hub_log_analytics_workspace_resource_group_name

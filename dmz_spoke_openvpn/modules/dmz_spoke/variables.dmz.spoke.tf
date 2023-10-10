@@ -151,12 +151,6 @@ variable "hub_virtual_network_name"{
   default     = null
 }
 
-variable "hub_storage_account_name"{
-  description = "The name of the hub storage account."
-  type        = string
-  default     = null
-}
-
 variable "hub_firewall_name"{
   description = "The name of the hub firewall."
   type        = string
