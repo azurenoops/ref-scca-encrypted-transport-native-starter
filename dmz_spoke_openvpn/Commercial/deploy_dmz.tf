@@ -9,7 +9,7 @@ AUTHOR/S: sstjean
 */
 
 ################################
-### DMZ Spoke Configuations  ###
+### DMZ Spoke Configurations  ###
 ################################
 
 module "dmz_spoke" {

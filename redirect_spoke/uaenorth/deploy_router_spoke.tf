@@ -9,7 +9,7 @@ AUTHOR/S: sstjean
 */
 
 #######################################
-### Redirector Spoke Configuations  ###
+### Redirector Spoke Configurations  ###
 #######################################
 
 module "redirector_spoke" {
