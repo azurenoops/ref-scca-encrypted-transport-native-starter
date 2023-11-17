@@ -57,7 +57,7 @@ module "mod_dmz_spoke" {
   # This list includes the Default subnet.  If not specified, no Subnets will be added to the VNet
   # Check README.md for more details
   # Route_table and NSG association to be added automatically for all subnets listed here.
-  # subnet name will be set as per Azure naming convention by defaut. expected value here is: <App or project name>
+  # subnet name will be set as per Azure naming convention by default. expected value here is: <App or project name>
   spoke_subnets = var.wl_subnets
 
 
